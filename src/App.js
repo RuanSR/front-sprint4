@@ -11,6 +11,7 @@ import MessageContext from './contexts/MessageContext';
 import useLoading from './hooks/useLoading';
 import ProductsPage from './pages/products/ProductsPage';
 import CategoriesService from './services/CategoriesService';
+import { GlobalStyle } from './components/GlobalStyle';
 
 function App() {
   const [filter, setFilter] = useState('');
@@ -34,6 +35,7 @@ function App() {
       <LoadingContext.Provider value={{ addRequest, removeRequest, isLoading }}>
         <MessageContext.Provider value={{ message, setMessage }}>
           <CategoriesContext.Provider value={{ categories }}>
+            <GlobalStyle/>
             <Spinner></Spinner>
             <div className="page-container">
               <Message></Message>
