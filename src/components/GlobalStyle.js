@@ -1,7 +1,7 @@
 //TODO Verificar se existe como diminuir ou melhorar esse style
 import { createGlobalStyle } from "styled-components";
 
-export default GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   html,
   body,
   div,
