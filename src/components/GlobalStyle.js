@@ -73,7 +73,7 @@ export const GlobalStyle = createGlobalStyle`
   footer,
   header,
   hgroup,
-  menu,
+
   nav,
   output,
   ruby,
