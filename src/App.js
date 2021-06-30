@@ -13,6 +13,7 @@ import MessageContext from "./contexts/MessageContext";
 import useLoading from "./hooks/useLoading";
 import ProductsPage from "./pages/products/ProductsPage";
 import ProductDateils from "./pages/product/ProductDateils";
+import NotFound from "./pages/NotFound";
 import CategoriesService from "./services/CategoriesService";
 import { GlobalStyle } from "./components/GlobalStyle";
 
@@ -52,6 +53,9 @@ function App() {
                     </Route>
                     <Route exact path="/product/:id">
                       <ProductDateils />
+                    </Route>
+                    <Route>
+                      <NotFound />
                     </Route>
                   </Switch>
                 </div>
