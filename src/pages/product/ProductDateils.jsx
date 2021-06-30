@@ -1,23 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import ProductsService from "../../services/ProductsService";
+import ProductsContext from "../../contexts/ProductsContext";
 import Breadcrumbs from "../../pages/products/components/Breadcrumbs";
 import styled from "styled-components";
 
 function ProductDateils() {
   const {id} = useParams();
   const [product, setProduct] = useState({});
+  
+  const { productsList } = useContext(ProductsContext);
 
   useEffect(() => {
-    console.log(id);
-    ProductsService.get()
-      .then((p) => {
-        let productFiltred = p.products.filter((product) => product.sku == id);
-        setProduct(...productFiltred);
-      })
-      .catch(() => console.log("Ocorreu um erro ao carregar produto..."));
+    let productFiltred = productsList.filter((product) => product.sku == id);
+    setProduct(productFiltred[0])
   }, [id]);
-
+  
   const ProductContainer = styled.div``;
 
   return (

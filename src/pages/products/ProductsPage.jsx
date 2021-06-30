@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import FilterContext from "../../contexts/FilterContext";
 import LoadingContext from "../../contexts/LoadingContext";
 import MessageContext from "../../contexts/MessageContext";
+import ProductsContext from "../../contexts/ProductsContext";
 import ProductsService from "../../services/ProductsService";
 import Breadcrumbs from "./components/Breadcrumbs";
 import Filters from "./components/Filters";
@@ -10,11 +11,11 @@ import Filters from "./components/Filters";
 function Product({ id, image, name, price }) {
   return (
     <Link className="products__card card" to={`/product/${id}`}>
-        <li className="card">
-            <img className="card__img" src={image} alt="" />
-            <p className="card__description">{name}</p>
-            <p className="card__price">R$ {price}</p>
-        </li>
+      <li className="card">
+        <img className="card__img" src={image} alt="" />
+        <p className="card__description">{name}</p>
+        <p className="card__price">R$ {price}</p>
+      </li>
     </Link>
   );
 }
@@ -23,6 +24,7 @@ function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState([]);
 
+  const { setProductsList } = useContext(ProductsContext);
   const { filter } = useContext(FilterContext);
   const { addRequest, removeRequest } = useContext(LoadingContext);
   const { setMessage } = useContext(MessageContext);
@@ -35,6 +37,7 @@ function ProductsPage() {
     ProductsService.get()
       .then((r) => {
         setProducts(r.products);
+        setProductsList(r.products);
         setFilters(r.filters);
       })
       .catch(() => setMessage("Ocorreu um erro ao carregar os produtos..."))
