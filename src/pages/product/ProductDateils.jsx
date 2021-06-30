@@ -2,20 +2,37 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import ProductsContext from "../../contexts/ProductsContext";
 import Breadcrumbs from "../../pages/products/components/Breadcrumbs";
+import BoxSize from "./components/BoxSize";
 import styled from "styled-components";
 
 function ProductDateils() {
-  const {id} = useParams();
+  let sizes = [4, 6, 8, 10];
+  let productSizeDefault = 6;
+  let index = sizes.indexOf(productSizeDefault);
+  const { id } = useParams();
   const [product, setProduct] = useState({});
-  
+  const [productSize, setProductSize] = useState(productSizeDefault);
+  const [selectedIndex, setSelectedSize] = useState(productSizeDefault);
+
   const { productsList } = useContext(ProductsContext);
 
   useEffect(() => {
     let productFiltred = productsList.filter((product) => product.sku == id);
-    setProduct(productFiltred[0])
+    setProduct(productFiltred[0]);
   }, [id]);
-  
+
+  useEffect(() => {
+    setSelectedSize(index);
+  }, []);
+
   const ProductContainer = styled.div``;
+
+  function changeSize(event) {
+    let size = event.target.value;
+    index = sizes.indexOf(size);
+    setSelectedSize(index);
+    setProductSize(size);
+  }
 
   return (
     <div className="main">
@@ -27,18 +44,24 @@ function ProductDateils() {
         <section className="product_description">
           <h1 className="product_title">{product.name}</h1>
           <article className="select_size">
-            <h6>Selecionar o tamanho: 6</h6>
+            <h6>Selecionar o tamanho: {productSize}</h6>
             <ul className="box">
-              <li className="box_size">4</li>
-              <li className="box_size">6</li>
-              <li className="box_size">8</li>
-              <li className="box_size">10</li>
+              {sizes.map((s, i) => (
+                <BoxSize
+                  key={i}
+                  size={s}
+                  selected={i == selectedIndex ? "selected_box" : ""}
+                  changeSize={changeSize}
+                />
+              ))}
             </ul>
           </article>
           <article className="container_buy">
             <p className="product_price">R$ {product.price}</p>
             <div className="container_button">
-              <button className="btnDefault btnSucess">Adicionar a sacola</button>
+              <button className="btnDefault btnSucess">
+                Adicionar a sacola
+              </button>
               <button className="btnDefault btnCancel">cancelar</button>
             </div>
           </article>
