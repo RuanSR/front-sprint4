@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import ProductsContext from "../../contexts/ProductsContext";
 import Breadcrumbs from "../../pages/products/components/Breadcrumbs";
 import BoxSize from "./components/BoxSize";
@@ -59,10 +60,16 @@ function ProductDateils() {
           <article className="container_buy">
             <p className="product_price">R$ {product.price}</p>
             <div className="container_button">
-              <button className="btnDefault btnSucess">
-                Adicionar a sacola
-              </button>
-              <button className="btnDefault btnCancel">cancelar</button>
+              <Link className="link-box" to="/">
+                <button className="btnDefault btnSucess">
+                  Adicionar a sacola
+                </button>
+              </Link>
+              <Link className="link-box" to="/">
+                <button className="btnDefault btnCancel">
+                  Cancelar
+                </button>
+              </Link>
             </div>
           </article>
         </section>
