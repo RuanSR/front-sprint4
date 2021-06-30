@@ -23,7 +23,7 @@ function Breadcrumbs() {
         <section className="main__breadcrumbs breadcrumbs">
             <nav>
                 <ol className="breadcrumbs__list">
-                    {categories.current && categories.current.map(c => <BreadcrumbItem key={c.id} link={c.link} label={c.label} />)}
+                    {categories.current && categories.current.map(c => <BreadcrumbItem key={c.id} link={c.link} label={c.name} />)}
                 </ol>
             </nav>
         </section>

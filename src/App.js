@@ -1,21 +1,23 @@
-import { useEffect, useState } from 'react';
-import './App.css';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import Message from './components/Message';
-import Spinner from './components/Spinner';
-import CategoriesContext from './contexts/CategoriesContext';
-import FilterContext from './contexts/FilterContext';
-import LoadingContext from './contexts/LoadingContext';
-import MessageContext from './contexts/MessageContext';
-import useLoading from './hooks/useLoading';
-import ProductsPage from './pages/products/ProductsPage';
-import CategoriesService from './services/CategoriesService';
-import { GlobalStyle } from './components/GlobalStyle';
+import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./App.css";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Message from "./components/Message";
+import Spinner from "./components/Spinner";
+import CategoriesContext from "./contexts/CategoriesContext";
+import FilterContext from "./contexts/FilterContext";
+import LoadingContext from "./contexts/LoadingContext";
+import MessageContext from "./contexts/MessageContext";
+import useLoading from "./hooks/useLoading";
+import ProductsPage from "./pages/products/ProductsPage";
+import ProductDateils from "./pages/product/ProductDateils";
+import CategoriesService from "./services/CategoriesService";
+import { GlobalStyle } from "./components/GlobalStyle";
 
 function App() {
-  const [filter, setFilter] = useState('');
-  const [message, setMessage] = useState('');
+  const [filter, setFilter] = useState("");
+  const [message, setMessage] = useState("");
   const [categories, setCategories] = useState({});
   const [addRequest, removeRequest, isLoading] = useLoading();
 
@@ -25,7 +27,7 @@ function App() {
   function loadCategories() {
     addRequest();
     CategoriesService.get()
-      .then(c => setCategories(c))
+      .then((c) => setCategories(c))
       .catch(() => setMessage("Ocorreu um erro ao carregar as categorias..."))
       .finally(() => removeRequest());
   }
@@ -35,14 +37,23 @@ function App() {
       <LoadingContext.Provider value={{ addRequest, removeRequest, isLoading }}>
         <MessageContext.Provider value={{ message, setMessage }}>
           <CategoriesContext.Provider value={{ categories }}>
-            <GlobalStyle/>
-            <Spinner></Spinner>
-            <div className="page-container">
-              <Message></Message>
-              <Header></Header>
-              <ProductsPage></ProductsPage>
-            </div>
-            <Footer></Footer>
+            <GlobalStyle />
+            <Spinner />
+            <Router>
+              <div className="page-container">
+                <Message />
+                <Header />
+                <Switch>
+                  <Route exact path="/">
+                    <ProductsPage />
+                  </Route>
+                  <Route exact path="/product/:id">
+                    <ProductDateils />
+                  </Route>
+                </Switch>
+              </div>
+              <Footer />
+            </Router>
           </CategoriesContext.Provider>
         </MessageContext.Provider>
       </LoadingContext.Provider>
