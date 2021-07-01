@@ -11,9 +11,7 @@ describe("Card de listagem de produto", () => {
         price={"50,00"}
       />
     );
-    
-    //TODO Testar img
-    // expect(screen.getByRole("img")).toHaveAttribute('img');
+ 
     expect(screen.getByText("Jaqueta")).toBeInTheDocument("Jaqueta");
     expect(screen.getByText("R$ 50,00")).toBeInTheDocument("R$ 50,00");
   });

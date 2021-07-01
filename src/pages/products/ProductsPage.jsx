@@ -19,7 +19,6 @@ function ProductsPage() {
   const { addRequest, removeRequest } = useContext(LoadingContext);
   const { setMessage } = useContext(MessageContext);
 
-  // eslint-disable-next-line
   useEffect(() => loadProducts(), []);
 
   function loadProducts() {
