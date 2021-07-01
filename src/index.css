@@ -17,7 +17,7 @@ html input {
   display: none;
 }
 
-.alert {
+/* .alert {
   background-color: #f8d7da;
   border: 1px solid #f5c6cb;
   border-radius: 4px;
@@ -29,7 +29,7 @@ html input {
   right: 10px;
   top: 10px;
   z-index: 9999;
-}
+} */
 
 /* .header {
   width: 100%;

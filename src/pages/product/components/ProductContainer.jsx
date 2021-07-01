@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import MessageContext from "../../../contexts/MessageContext";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import BoxSize from "./BoxSize";
@@ -7,6 +8,8 @@ function Product({ product }) {
   let productSizeDefault = 6;
   const [selectedIndex, setSelectedSize] = useState(productSizeDefault);
   const [productSize, setProductSize] = useState(productSizeDefault);
+
+  const { setMessage } = useContext(MessageContext);
 
   let sizes = [4, 6, 8, 10];
   let index = sizes.indexOf(productSizeDefault);
@@ -46,7 +49,7 @@ function Product({ product }) {
           <p className="product_price">R$ {product.price}</p>
           <div className="container_button">
             <Link className="link-box" to="/">
-              <button className="btnDefault btnSucess">
+              <button onClick={()=> {setMessage('Produto adicionado a sacola')}} className="btnDefault btnSucess">
                 Adicionar a sacola
               </button>
             </Link>
