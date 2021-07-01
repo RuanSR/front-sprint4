@@ -5,6 +5,91 @@ import styled from "styled-components";
 import BoxSize from "./BoxSize";
 
 function Product({ product }) {
+  const ProductContainer = styled.div`
+    display: flex;
+    padding: 25px;
+  `;
+
+  const ProductSection = styled.section`
+    width: 50%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+  `;
+
+  const ProductDescription = styled.section`
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h1 {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  `;
+
+  const SelectSize = styled.article`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    ul {
+      display: flex;
+    }
+  `;
+
+  const ContainerBuy = styled.article`
+    width: 70%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    p {
+      padding-top: 5px;
+      color: #d0403a;
+      font-weight: 500;
+      font-size: 1.4375rem;
+    }
+
+    div {
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  `;
+
+  const BtnDefault = styled.button`
+    border: 0px;
+    width: 95%;
+    height: 35px;
+    margin: 5px;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+      0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  `;
+
+  const BtnSuccess = styled(BtnDefault)`
+    cursor: pointer;
+    text-transform: uppercase;
+    background-color: #008844;
+  `;
+
+  const BtnCancel = styled(BtnDefault)`
+    background-color: #d10015df;
+  `;
+
   let productSizeDefault = 6;
   const [selectedIndex, setSelectedSize] = useState(productSizeDefault);
   const [productSize, setProductSize] = useState(productSizeDefault);
@@ -26,15 +111,15 @@ function Product({ product }) {
   }
 
   return (
-    <div className="product_container">
-      <section className="product_image">
-        <img className="p_image" src={product.image} />
-      </section>
-      <section className="product_description">
-        <h1 className="product_title">{product.name}</h1>
-        <article className="select_size">
+    <ProductContainer>
+      <ProductSection>
+        <img src={product.image} />
+      </ProductSection>
+      <ProductDescription>
+        <h1>{product.name}</h1>
+        <SelectSize>
           <h6>Selecionar o tamanho: {productSize}</h6>
-          <ul className="box">
+          <ul>
             {sizes.map((s, i) => (
               <BoxSize
                 key={i}
@@ -44,22 +129,26 @@ function Product({ product }) {
               />
             ))}
           </ul>
-        </article>
-        <article className="container_buy">
-          <p className="product_price">R$ {product.price}</p>
-          <div className="container_button">
+        </SelectSize>
+        <ContainerBuy>
+          <p>R$ {product.price}</p>
+          <div>
             <Link className="link-box" to="/">
-              <button onClick={()=> {setMessage('Produto adicionado a sacola')}} className="btnDefault btnSucess">
+              <BtnSuccess
+                onClick={() => {
+                  setMessage("Produto adicionado a sacola");
+                }}
+              >
                 Adicionar a sacola
-              </button>
+              </BtnSuccess>
             </Link>
             <Link className="link-box" to="/">
-              <button className="btnDefault btnCancel">Cancelar</button>
+              <BtnCancel>Cancelar</BtnCancel>
             </Link>
           </div>
-        </article>
-      </section>
-    </div>
+        </ContainerBuy>
+      </ProductDescription>
+    </ProductContainer>
   );
 }
 
