@@ -6,19 +6,9 @@ import MessageContext from "../../contexts/MessageContext";
 import ProductsContext from "../../contexts/ProductsContext";
 import ProductsService from "../../services/ProductsService";
 import Breadcrumbs from "./components/Breadcrumbs";
+import Product from "./components/Product";
 import Filters from "./components/Filters";
 
-function Product({ id, image, name, price }) {
-  return (
-    <Link className="products__card card" to={`/product/${id}`}>
-      <li className="card">
-        <img className="card__img" src={image} alt="" />
-        <p className="card__description">{name}</p>
-        <p className="card__price">R$ {price}</p>
-      </li>
-    </Link>
-  );
-}
 
 function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -58,13 +48,15 @@ function ProductsPage() {
                   : true
               )
               .map((p) => (
-                <Product
-                  key={p.sku}
-                  id={p.sku}
-                  image={p.image}
-                  name={p.name}
-                  price={p.price}
-                />
+                <Link className="products__card card" to={`/product/${p.sku}`}>
+                  <Product
+                    key={p.sku}
+                    id={p.sku}
+                    image={p.image}
+                    name={p.name}
+                    price={p.price}
+                  />
+                </Link>
               ))}
           </ol>
         </div>
